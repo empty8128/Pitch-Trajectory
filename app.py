@@ -1,5 +1,4 @@
 import streamlit as st
-import plotly.express as px
 from datetime import datetime
 from pybaseball import pitching_stats
 import pandas as pd
@@ -9,7 +8,6 @@ import plotly.graph_objects as go
 import numpy as np
 
 # データの作成
-df = px.data.iris()
 
 Game_Type = 'R'
 Per=0.001
@@ -232,7 +230,7 @@ else:
         mode='markers',
         marker=dict(
         size=5,
-        color='blue'
+        color='red'
         ),
         opacity=0.5,
         name='The Picth Trajectory'
@@ -252,7 +250,7 @@ else:
         mode='markers',
         marker=dict(
             size=3,
-            color='rgb(49, 140, 231)'
+            color='orange'
         ),
         opacity=0.5,
         name='Without Movement from RP'
