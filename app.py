@@ -25,23 +25,24 @@ st.set_page_config(layout="wide")
 
 st.markdown("## Pitch Trajector")
 
+
 ###年指定0
 
-year0 = [var for var in range(2015,datetime.now().year+1,1)]
+y0 = [var for var in range(2015,datetime.now().year+1,1)]
 
-year0_1 = st.sidebar.selectbox(
+y0_1 = st.sidebar.selectbox(
     'Year0',
-    year0,
+    y0,
     index = None,
     placeholder='Please select a year.')
 
 ###選手指定0
 
-if year0_1 is None:
+if y0_1 is None:
     player0 = ''
 else:
     with st.spinner('Wait a minute'):
-        player0 = [var for var in sorted(pitching_stats(year0_1, qual=1)['Name'].unique())]
+        player0 = [var for var in sorted(pitching_stats(y0_1, qual=1)['Name'].unique())]
 
 player0_1 = st.sidebar.selectbox(
     'Player Name0',
@@ -51,12 +52,12 @@ player0_1 = st.sidebar.selectbox(
     )
 
 ###球指定0
-if year0_1 is None or player0_1 is None:
+if y0_1 is None or player0_1 is None:
     pitch0=''
 else:
     with st.spinner('Wait a minute'):
         pf0 = pd.DataFrame()
-        pf0_0 = statcast_pitcher(str(year0_1)+'-01-01', str(year0_1)+'-12-31', playerid_lookup(player0_1.split()[1], player0_1.split()[0], fuzzy=True).iloc[0,2])
+        pf0_0 = statcast_pitcher(str(y0_1)+'-01-01', str(y0_1)+'-12-31', playerid_lookup(player0_1.split()[1], player0_1.split()[0], fuzzy=True).iloc[0,2])
         if Game_Type == 'R':
             pf0_1 = pf0_0[pf0_0['game_type']== 'R']
         elif Game_Type == 'P':
@@ -95,22 +96,22 @@ pitch0_1 = st.sidebar.selectbox(
 
 ###年指定1
 
-year1 = [var for var in range(2015,datetime.now().year+1,1)]
+y1 = [var for var in range(2015,datetime.now().year+1,1)]
 
-year1_1 = st.sidebar.selectbox(
+y1_1 = st.sidebar.selectbox(
     'Year1',
-    year1,
+    y1,
     index = None,
     placeholder='Please select a year.'
     )
 
 ###選手指定1
 
-if year1_1 is None:
+if y1_1 is None:
     player1 = ''
 else:
     with st.spinner('Wait a minute'):
-        player1 = [var for var in sorted(pitching_stats(year1_1, qual=1)['Name'].unique())]
+        player1 = [var for var in sorted(pitching_stats(y1_1, qual=1)['Name'].unique())]
 
 player1_1 = st.sidebar.selectbox(
     'Player Name1',
@@ -121,12 +122,12 @@ player1_1 = st.sidebar.selectbox(
 
 ###球指定1
 
-if year1_1 is None or player1_1 is None:
+if y1_1 is None or player1_1 is None:
     pitch1=''
 else:
     with st.spinner('Wait a minute'):
         pf1 = pd.DataFrame()
-        pf1_0 = statcast_pitcher(str(year1_1)+'-01-01', str(year1_1)+'-12-31', playerid_lookup(player1_1.split()[1], player1_1.split()[0], fuzzy=True).iloc[0,2])
+        pf1_0 = statcast_pitcher(str(y1_1)+'-01-01', str(y1_1)+'-12-31', playerid_lookup(player1_1.split()[1], player1_1.split()[0], fuzzy=True).iloc[0,2])
         if Game_Type == 'R':
             pf1_1 = pf1_0[pf1_0['game_type']== 'R']
         elif Game_Type == 'P':
@@ -174,7 +175,7 @@ fig_2 = go.Figure()
 ###グラフ0
 
 
-if year0_1 is None or player0_1 is None or pitch0_1 is None:
+if y0_1 is None or player0_1 is None or pitch0_1 is None:
     pass
 else:
     def t_50_0(a,b,c):
@@ -371,7 +372,7 @@ else:
 
 ###グラフ1
 
-if year1_1 is None or player1_1 is None or pitch1_1 is None:
+if y1_1 is None or player1_1 is None or pitch1_1 is None:
     pass
 else:
     def t_50_0(a,b,c):
