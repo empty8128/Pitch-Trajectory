@@ -25,8 +25,6 @@ st.set_page_config(layout="wide")
 
 st.markdown("## Pitch Trajector")
 
-st.sidebar.markdown("# Please select in order of year-playername-pitch")
-
 ###年指定0
 
 year0 = [var for var in range(2015,datetime.now().year+1,1)]
