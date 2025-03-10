@@ -25,6 +25,8 @@ st.set_page_config(layout="wide")
 
 st.markdown("## Pitch Trajector")
 
+st.sidebar.markdown("# Please select in order of year-playername-pitch")
+
 ###年指定0
 
 year0 = [var for var in range(2015,datetime.now().year+1,1)]
@@ -40,7 +42,8 @@ year0_1 = st.sidebar.selectbox(
 if year0_1 is None:
     player0 = ''
 else:
-    player0 = [var for var in sorted(pitching_stats(year0_1, qual=1)['Name'].unique())]
+    with st.spinner('Wait a minute'):
+        player0 = [var for var in sorted(pitching_stats(year0_1, qual=1)['Name'].unique())]
 
 player0_1 = st.sidebar.selectbox(
     'Player Name0',
@@ -53,39 +56,38 @@ player0_1 = st.sidebar.selectbox(
 if year0_1 is None or player0_1 is None:
     pitch0=''
 else:
-    pf0 = pd.DataFrame()
-    pf0_0 = statcast_pitcher(str(year0_1)+'-01-01', str(year0_1)+'-12-31', playerid_lookup(player0_1.split()[1], player0_1.split()[0], fuzzy=True).iloc[0,2])
-    if Game_Type == 'R':
-        pf0_1 = pf0_0[pf0_0['game_type']== 'R']
-    elif Game_Type == 'P':
-        pf0_1 = pf0_0[pf0_0['game_type'].isin(['F', 'D', 'L', 'W'])]
-    length0 = pf0_1.shape[0]
-    num=[]
-    for t in range(length0,0,-1):
-        num.append(t)
-    pf0 = pf0_1.assign(n=num)
+    with st.spinner('Wait a minute'):
+        pf0 = pd.DataFrame()
+        pf0_0 = statcast_pitcher(str(year0_1)+'-01-01', str(year0_1)+'-12-31', playerid_lookup(player0_1.split()[1], player0_1.split()[0], fuzzy=True).iloc[0,2])
+        if Game_Type == 'R':
+            pf0_1 = pf0_0[pf0_0['game_type']== 'R']
+        elif Game_Type == 'P':
+            pf0_1 = pf0_0[pf0_0['game_type'].isin(['F', 'D', 'L', 'W'])]
+        len0 = pf0_1.shape[0]
+        num=[]
+        for t in range(len0,0,-1):
+            num.append(t)
+        pf0 = pf0_1.assign(n=num)
 
-    pitch_type_n0 = pf0.columns.get_loc('pitch_type')
-    game_date_n0 = pf0.columns.get_loc('game_date')
-    release_speed_n0 = pf0.columns.get_loc('release_speed')
-    player_name_n0 = pf0.columns.get_loc('player_name')
-    balls_n0 = pf0.columns.get_loc('balls')
-    strikes_n0 = pf0.columns.get_loc('strikes')
-    outs_when_up_n0 = pf0.columns.get_loc('outs_when_up')
-    inning_n0 = pf0.columns.get_loc('inning')
-    vx0_n0 = pf0.columns.get_loc('vx0')
-    vy0_n0 = pf0.columns.get_loc('vy0')
-    vz0_n0 = pf0.columns.get_loc('vz0')
-    ax_n0 = pf0.columns.get_loc('ax')
-    ay_n0 = pf0.columns.get_loc('ay')
-    sz_top_n0 = pf0.columns.get_loc('sz_top')
-    sz_bot_n0 = pf0.columns.get_loc('sz_bot')
-    az_n0 = pf0.columns.get_loc('az')
-    release_pos_y_n = pf0.columns.get_loc('release_pos_y')
-    pitch_name_n0 = pf0.columns.get_loc('pitch_name')
+        p_t_n0 = pf0.columns.get_loc('pitch_type')
+        g_d_n0 = pf0.columns.get_loc('game_date')
+        r_s_n0 = pf0.columns.get_loc('release_speed')
+        b_n0 = pf0.columns.get_loc('balls')
+        s_n0 = pf0.columns.get_loc('strikes')
+        o_w_u_n0 = pf0.columns.get_loc('outs_when_up')
+        inn_n0 = pf0.columns.get_loc('inning')
+        vx0_n0 = pf0.columns.get_loc('vx0')
+        vy0_n0 = pf0.columns.get_loc('vy0')
+        vz0_n0 = pf0.columns.get_loc('vz0')
+        ax_n0 = pf0.columns.get_loc('ax')
+        ay_n0 = pf0.columns.get_loc('ay')
+        sz_top_n0 = pf0.columns.get_loc('sz_top')
+        sz_bot_n0 = pf0.columns.get_loc('sz_bot')
+        az_n0 = pf0.columns.get_loc('az')
+        r_p_y_n0 = pf0.columns.get_loc('release_pos_y')
 
-    pitch0=[]
-    pitch0.extend(reversed([str('{:0=4}'.format(x))+','+str(pf0.iloc[length0-x,game_date_n0])+','+str(pf0.iloc[length0-x,pitch_type_n0])+',IP:'+str(pf0.iloc[length0-x,inning_n0])+',B-S-O:'+str(pf0.iloc[length0-x,balls_n0])+'-'+str(pf0.iloc[length0-x,strikes_n0])+'-'+str(pf0.iloc[length0-x,outs_when_up_n0])+','+str(pf0.iloc[length0-x,release_speed_n0])+'(mph)' for x in pf0['n']]))
+        pitch0=[]
+        pitch0.extend(reversed([str('{:0=4}'.format(x))+','+str(pf0.iloc[len0-x,g_d_n0])+','+str(pf0.iloc[len0-x,p_t_n0])+',IP:'+str(pf0.iloc[len0-x,inn_n0])+',B-S-O:'+str(pf0.iloc[len0-x,b_n0])+'-'+str(pf0.iloc[len0-x,s_n0])+'-'+str(pf0.iloc[len0-x,o_w_u_n0])+','+str(pf0.iloc[len0-x,r_s_n0])+'(mph)' for x in pf0['n']]))
 
 pitch0_1 = st.sidebar.selectbox(
     'Pitch0',
@@ -109,7 +111,8 @@ year1_1 = st.sidebar.selectbox(
 if year1_1 is None:
     player1 = ''
 else:
-    player1 = [var for var in sorted(pitching_stats(year1_1, qual=1)['Name'].unique())]
+    with st.spinner('Wait a minute'):
+        player1 = [var for var in sorted(pitching_stats(year1_1, qual=1)['Name'].unique())]
 
 player1_1 = st.sidebar.selectbox(
     'Player Name1',
@@ -123,39 +126,39 @@ player1_1 = st.sidebar.selectbox(
 if year1_1 is None or player1_1 is None:
     pitch1=''
 else:
-    pf1 = pd.DataFrame()
-    pf1_0 = statcast_pitcher(str(year1_1)+'-01-01', str(year1_1)+'-12-31', playerid_lookup(player1_1.split()[1], player1_1.split()[0], fuzzy=True).iloc[0,2])
-    if Game_Type == 'R':
-        pf1_1 = pf1_0[pf1_0['game_type']== 'R']
-    elif Game_Type == 'P':
-        pf1_1 = pf1_0[pf1_0['game_type'].isin(['F', 'D', 'L', 'W'])]
-    length1 = pf1_1.shape[0]
-    num1=[]
-    for t in range(length1,0,-1):
-        num1.append(t)
-    pf1 = pf1_1.assign(n=num1)
+    with st.spinner('Wait a minute'):
+        pf1 = pd.DataFrame()
+        pf1_0 = statcast_pitcher(str(year1_1)+'-01-01', str(year1_1)+'-12-31', playerid_lookup(player1_1.split()[1], player1_1.split()[0], fuzzy=True).iloc[0,2])
+        if Game_Type == 'R':
+            pf1_1 = pf1_0[pf1_0['game_type']== 'R']
+        elif Game_Type == 'P':
+            pf1_1 = pf1_0[pf1_0['game_type'].isin(['F', 'D', 'L', 'W'])]
+        len1 = pf1_1.shape[0]
+        num1=[]
+        for t in range(len1,0,-1):
+            num1.append(t)
+        pf1 = pf1_1.assign(n=num1)
 
-    pitch_type_n1 = pf1.columns.get_loc('pitch_type')
-    game_date_n1 = pf1.columns.get_loc('game_date')
-    release_speed_n1 = pf1.columns.get_loc('release_speed')
-    player_name_n1 = pf1.columns.get_loc('player_name')
-    balls_n1 = pf1.columns.get_loc('balls')
-    strikes_n1 = pf1.columns.get_loc('strikes')
-    outs_when_up_n1 = pf1.columns.get_loc('outs_when_up')
-    inning_n1 = pf1.columns.get_loc('inning')
-    vx0_n1 = pf1.columns.get_loc('vx0')
-    vy0_n1 = pf1.columns.get_loc('vy0')
-    vz0_n1 = pf1.columns.get_loc('vz0')
-    ax_n1 = pf1.columns.get_loc('ax')
-    ay_n1 = pf1.columns.get_loc('ay')
-    sz_top_n1 = pf1.columns.get_loc('sz_top')
-    sz_bot_n1 = pf1.columns.get_loc('sz_bot')
-    az_n1 = pf1.columns.get_loc('az')
-    release_pos_y_n = pf1.columns.get_loc('release_pos_y')
-    pitch_name_n1 = pf1.columns.get_loc('pitch_name')
+        p_t_n1 = pf1.columns.get_loc('pitch_type')
+        g_d_n1 = pf1.columns.get_loc('game_date')
+        r_s_n1 = pf1.columns.get_loc('release_speed')
+        p_n_n1 = pf1.columns.get_loc('player_name')
+        b_n1 = pf1.columns.get_loc('balls')
+        s_n1 = pf1.columns.get_loc('strikes')
+        o_w_u_n1 = pf1.columns.get_loc('outs_when_up')
+        inn_n1 = pf1.columns.get_loc('inning')
+        vx0_n1 = pf1.columns.get_loc('vx0')
+        vy0_n1 = pf1.columns.get_loc('vy0')
+        vz0_n1 = pf1.columns.get_loc('vz0')
+        ax_n1 = pf1.columns.get_loc('ax')
+        ay_n1 = pf1.columns.get_loc('ay')
+        sz_top_n1 = pf1.columns.get_loc('sz_top')
+        sz_bot_n1 = pf1.columns.get_loc('sz_bot')
+        az_n1 = pf1.columns.get_loc('az')
+        r_p_y_n1 = pf1.columns.get_loc('release_pos_y')
 
-    pitch1=[]
-    pitch1.extend(reversed([str('{:0=4}'.format(x))+','+str(pf1.iloc[length1-x,game_date_n1])+','+str(pf1.iloc[length1-x,pitch_type_n1])+',IP:'+str(pf1.iloc[length1-x,inning_n1])+',B-S-O:'+str(pf1.iloc[length1-x,balls_n1])+'-'+str(pf1.iloc[length1-x,strikes_n1])+'-'+str(pf1.iloc[length1-x,outs_when_up_n1])+','+str(pf1.iloc[length1-x,release_speed_n1])+'(mph)' for x in pf1['n']]))
+        pitch1=[]
+        pitch1.extend(reversed([str('{:0=4}'.format(x))+','+str(pf1.iloc[len1-x,g_d_n1])+','+str(pf1.iloc[len1-x,p_t_n1])+',IP:'+str(pf1.iloc[len1-x,inn_n1])+',B-S-O:'+str(pf1.iloc[len1-x,b_n1])+'-'+str(pf1.iloc[len1-x,s_n1])+'-'+str(pf1.iloc[len1-x,o_w_u_n1])+','+str(pf1.iloc[len1-x,r_s_n1])+'(mph)' for x in pf1['n']]))
 
 pitch1_1 = st.sidebar.selectbox(
     'Pitch1',
@@ -181,7 +184,7 @@ else:
     def t_50_1712(a,b,c):
         return (-np.sqrt(a.iloc[b-c,vy0_n0]**2-(2*a.iloc[b-c,ay_n0]*(50-17/12)))-a.iloc[b-c,vy0_n0])/a.iloc[b-c,ay_n0]
     def t_s(a,b,c):
-        return (-a.iloc[b-c,vy0_n0]-np.sqrt(a.iloc[b-c,vy0_n0]**2-a.iloc[b-c,ay_n0]*(100-2*a.iloc[b-c,release_pos_y_n])))/a.iloc[b-c,ay_n0]
+        return (-a.iloc[b-c,vy0_n0]-np.sqrt(a.iloc[b-c,vy0_n0]**2-a.iloc[b-c,ay_n0]*(100-2*a.iloc[b-c,r_p_y_n0])))/a.iloc[b-c,ay_n0]
     def t_w(a,b,c):
         return t_50_0(a,b,c)-t_s(a,b,c)
     def v_x0_s(a,b,c):
@@ -203,19 +206,19 @@ else:
 
     n0 = int(pitch0_1[0:4])
 
-    ax0 = pf0.iloc[length0-n0,ax_n0]
-    ay0 = pf0.iloc[length0-n0,ay_n0]
-    az0 = pf0.iloc[length0-n0,az_n0]
-    t_50_00 = t_50_0(pf0,length0,n0)
-    t_50_17120 = t_50_1712(pf0,length0,n0)
-    t_start0 = t_s(pf0,length0,n0)
-    t_whole0 = t_w(pf0,length0,n0)
-    v_x0_s0 = v_x0_s(pf0,length0,n0)
-    v_y0_s0 = v_y0_s(pf0,length0,n0)
-    v_z0_s0 = v_z0_s(pf0,length0,n0)
-    r_x_s0 = r_x_s0(pf0,length0,n0)
-    r_y_s0 = r_y_s0(pf0,length0,n0)
-    r_z_s0 = r_z_s0(pf0,length0,n0)
+    ax0 = pf0.iloc[len0-n0,ax_n0]
+    ay0 = pf0.iloc[len0-n0,ay_n0]
+    az0 = pf0.iloc[len0-n0,az_n0]
+    t_50_00 = t_50_0(pf0,len0,n0)
+    t_50_17120 = t_50_1712(pf0,len0,n0)
+    t_start0 = t_s(pf0,len0,n0)
+    t_whole0 = t_w(pf0,len0,n0)
+    v_x0_s0 = v_x0_s(pf0,len0,n0)
+    v_y0_s0 = v_y0_s(pf0,len0,n0)
+    v_z0_s0 = v_z0_s(pf0,len0,n0)
+    r_x_s0 = r_x_s0(pf0,len0,n0)
+    r_y_s0 = r_y_s0(pf0,len0,n0)
+    r_z_s0 = r_z_s0(pf0,len0,n0)
     x0_1=[]
     y0_1=[]
     z0_1=[]
@@ -319,19 +322,19 @@ else:
     z0_sz=[]
     x0_sz.append(17/24)
     y0_sz.append(17/12)
-    z0_sz.append(pf0.iloc[length0-n0,sz_bot_n0])
+    z0_sz.append(pf0.iloc[len0-n0,sz_bot_n0])
     x0_sz.append(-17/24)
     y0_sz.append(17/12)
-    z0_sz.append(pf0.iloc[length0-n0,sz_bot_n0])
+    z0_sz.append(pf0.iloc[len0-n0,sz_bot_n0])
     x0_sz.append(-17/24)
     y0_sz.append(17/12)
-    z0_sz.append(pf0.iloc[length0-n0,sz_top_n0])
+    z0_sz.append(pf0.iloc[len0-n0,sz_top_n0])
     x0_sz.append(17/24)
     y0_sz.append(17/12)
-    z0_sz.append(pf0.iloc[length0-n0,sz_top_n0])
+    z0_sz.append(pf0.iloc[len0-n0,sz_top_n0])
     x0_sz.append(17/24)
     y0_sz.append(17/12)
-    z0_sz.append(pf0.iloc[length0-n0,sz_bot_n0])
+    z0_sz.append(pf0.iloc[len0-n0,sz_bot_n0])
     fig_0.add_trace(go.Scatter3d(
         x=x0_sz,
         y=y0_sz,
@@ -342,7 +345,7 @@ else:
             width=3
         ),
         opacity=1,
-        name='Strike Zone(1)'
+        name='Strike Zone(0)'
     ))
 
 
@@ -378,7 +381,7 @@ else:
     def t_50_1712(a,b,c):
         return (-np.sqrt(a.iloc[b-c,vy0_n1]**2-(2*a.iloc[b-c,ay_n1]*(50-17/12)))-a.iloc[b-c,vy0_n1])/a.iloc[b-c,ay_n1]
     def t_s(a,b,c):
-        return (-a.iloc[b-c,vy0_n1]-np.sqrt(a.iloc[b-c,vy0_n1]**2-a.iloc[b-c,ay_n1]*(100-2*a.iloc[b-c,release_pos_y_n])))/a.iloc[b-c,ay_n1]
+        return (-a.iloc[b-c,vy0_n1]-np.sqrt(a.iloc[b-c,vy0_n1]**2-a.iloc[b-c,ay_n1]*(100-2*a.iloc[b-c,r_p_y_n1])))/a.iloc[b-c,ay_n1]
     def t_w(a,b,c):
         return t_50_0(a,b,c)-t_s(a,b,c)
     def v_x0_s(a,b,c):
@@ -400,19 +403,19 @@ else:
 
     n1 = int(pitch1_1[0:4])
 
-    ax1 = pf1.iloc[length1-n1,ax_n1]
-    ay1 = pf1.iloc[length1-n1,ay_n1]
-    az1 = pf1.iloc[length1-n1,az_n1]
-    t_50_01 = t_50_0(pf1,length1,n1)
-    t_50_17121 = t_50_1712(pf1,length1,n1)
-    t_start1 = t_s(pf1,length1,n1)
-    t_whole1 = t_w(pf1,length1,n1)
-    v_x0_s1 = v_x0_s(pf1,length1,n1)
-    v_y0_s1 = v_y0_s(pf1,length1,n1)
-    v_z0_s1 = v_z0_s(pf1,length1,n1)
-    r_x_s1 = r_x_s0(pf1,length1,n1)
-    r_y_s1 = r_y_s0(pf1,length1,n1)
-    r_z_s1 = r_z_s0(pf1,length1,n1)
+    ax1 = pf1.iloc[len1-n1,ax_n1]
+    ay1 = pf1.iloc[len1-n1,ay_n1]
+    az1 = pf1.iloc[len1-n1,az_n1]
+    t_50_01 = t_50_0(pf1,len1,n1)
+    t_50_17121 = t_50_1712(pf1,len1,n1)
+    t_start1 = t_s(pf1,len1,n1)
+    t_whole1 = t_w(pf1,len1,n1)
+    v_x0_s1 = v_x0_s(pf1,len1,n1)
+    v_y0_s1 = v_y0_s(pf1,len1,n1)
+    v_z0_s1 = v_z0_s(pf1,len1,n1)
+    r_x_s1 = r_x_s0(pf1,len1,n1)
+    r_y_s1 = r_y_s0(pf1,len1,n1)
+    r_z_s1 = r_z_s0(pf1,len1,n1)
     x1_1=[]
     y1_1=[]
     z1_1=[]
@@ -516,19 +519,19 @@ else:
     z1_sz=[]
     x1_sz.append(17/24)
     y1_sz.append(17/12)
-    z1_sz.append(pf1.iloc[length1-n1,sz_bot_n1])
+    z1_sz.append(pf1.iloc[len1-n1,sz_bot_n1])
     x1_sz.append(-17/24)
     y1_sz.append(17/12)
-    z1_sz.append(pf1.iloc[length1-n1,sz_bot_n1])
+    z1_sz.append(pf1.iloc[len1-n1,sz_bot_n1])
     x1_sz.append(-17/24)
     y1_sz.append(17/12)
-    z1_sz.append(pf1.iloc[length1-n1,sz_top_n1])
+    z1_sz.append(pf1.iloc[len1-n1,sz_top_n1])
     x1_sz.append(17/24)
     y1_sz.append(17/12)
-    z1_sz.append(pf1.iloc[length1-n1,sz_top_n1])
+    z1_sz.append(pf1.iloc[len1-n1,sz_top_n1])
     x1_sz.append(17/24)
     y1_sz.append(17/12)
-    z1_sz.append(pf1.iloc[length1-n1,sz_bot_n1])
+    z1_sz.append(pf1.iloc[len1-n1,sz_bot_n1])
 
     if pitch0_1 is None:
         fig_0.add_trace(go.Scatter3d(
