@@ -42,7 +42,7 @@ if y0_1 is None:
     pl0 = ''
 else:
     with st.spinner('Wait a minute'):
-        player0 = [var for var in sorted(pitching_stats(y0_1, qual=1)['Name'].unique())]
+        pl0 = [var for var in sorted(pitching_stats(y0_1, qual=1)['Name'].unique())]
 
 pl0_1 = st.sidebar.selectbox(
     'Player Name0',
