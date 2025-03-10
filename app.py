@@ -39,25 +39,25 @@ y0_1 = st.sidebar.selectbox(
 ###選手指定0
 
 if y0_1 is None:
-    player0 = ''
+    pl0 = ''
 else:
     with st.spinner('Wait a minute'):
         player0 = [var for var in sorted(pitching_stats(y0_1, qual=1)['Name'].unique())]
 
-player0_1 = st.sidebar.selectbox(
+pl0_1 = st.sidebar.selectbox(
     'Player Name0',
-    player0,
+    pl0,
     index = None,
     placeholder='Please select a player.'
     )
 
 ###球指定0
-if y0_1 is None or player0_1 is None:
-    pitch0=''
+if y0_1 is None or pl0_1 is None:
+    pi0=''
 else:
     with st.spinner('Wait a minute'):
         pf0 = pd.DataFrame()
-        pf0_0 = statcast_pitcher(str(y0_1)+'-01-01', str(y0_1)+'-12-31', playerid_lookup(player0_1.split()[1], player0_1.split()[0], fuzzy=True).iloc[0,2])
+        pf0_0 = statcast_pitcher(str(y0_1)+'-01-01', str(y0_1)+'-12-31', playerid_lookup(pl0_1.split()[1], pl0_1.split()[0], fuzzy=True).iloc[0,2])
         if Game_Type == 'R':
             pf0_1 = pf0_0[pf0_0['game_type']== 'R']
         elif Game_Type == 'P':
@@ -85,12 +85,12 @@ else:
         az_n0 = pf0.columns.get_loc('az')
         r_p_y_n0 = pf0.columns.get_loc('release_pos_y')
 
-        pitch0=[]
-        pitch0.extend(reversed([str('{:0=4}'.format(x))+','+str(pf0.iloc[len0-x,g_d_n0])+','+str(pf0.iloc[len0-x,p_t_n0])+',IP:'+str(pf0.iloc[len0-x,inn_n0])+',B-S-O:'+str(pf0.iloc[len0-x,b_n0])+'-'+str(pf0.iloc[len0-x,s_n0])+'-'+str(pf0.iloc[len0-x,o_w_u_n0])+','+str(pf0.iloc[len0-x,r_s_n0])+'(mph)' for x in pf0['n']]))
+        pi0=[]
+        pi0.extend(reversed([str('{:0=4}'.format(x))+','+str(pf0.iloc[len0-x,g_d_n0])+','+str(pf0.iloc[len0-x,p_t_n0])+',IP:'+str(pf0.iloc[len0-x,inn_n0])+',B-S-O:'+str(pf0.iloc[len0-x,b_n0])+'-'+str(pf0.iloc[len0-x,s_n0])+'-'+str(pf0.iloc[len0-x,o_w_u_n0])+','+str(pf0.iloc[len0-x,r_s_n0])+'(mph)' for x in pf0['n']]))
 
-pitch0_1 = st.sidebar.selectbox(
+pi0_1 = st.sidebar.selectbox(
     'Pitch0',
-    pitch0,
+    pi0,
     index = None,
     placeholder='Please select a pitch.')
 
@@ -108,26 +108,26 @@ y1_1 = st.sidebar.selectbox(
 ###選手指定1
 
 if y1_1 is None:
-    player1 = ''
+    pl1 = ''
 else:
     with st.spinner('Wait a minute'):
-        player1 = [var for var in sorted(pitching_stats(y1_1, qual=1)['Name'].unique())]
+        pl1 = [var for var in sorted(pitching_stats(y1_1, qual=1)['Name'].unique())]
 
-player1_1 = st.sidebar.selectbox(
+pl1_1 = st.sidebar.selectbox(
     'Player Name1',
-    player1,
+    pl1,
     index = None,
     placeholder='Please select a player.'
     )
 
 ###球指定1
 
-if y1_1 is None or player1_1 is None:
-    pitch1=''
+if y1_1 is None or pl1_1 is None:
+    pi1=''
 else:
     with st.spinner('Wait a minute'):
         pf1 = pd.DataFrame()
-        pf1_0 = statcast_pitcher(str(y1_1)+'-01-01', str(y1_1)+'-12-31', playerid_lookup(player1_1.split()[1], player1_1.split()[0], fuzzy=True).iloc[0,2])
+        pf1_0 = statcast_pitcher(str(y1_1)+'-01-01', str(y1_1)+'-12-31', playerid_lookup(pl1_1.split()[1], pl1_1.split()[0], fuzzy=True).iloc[0,2])
         if Game_Type == 'R':
             pf1_1 = pf1_0[pf1_0['game_type']== 'R']
         elif Game_Type == 'P':
@@ -156,12 +156,12 @@ else:
         az_n1 = pf1.columns.get_loc('az')
         r_p_y_n1 = pf1.columns.get_loc('release_pos_y')
 
-        pitch1=[]
-        pitch1.extend(reversed([str('{:0=4}'.format(x))+','+str(pf1.iloc[len1-x,g_d_n1])+','+str(pf1.iloc[len1-x,p_t_n1])+',IP:'+str(pf1.iloc[len1-x,inn_n1])+',B-S-O:'+str(pf1.iloc[len1-x,b_n1])+'-'+str(pf1.iloc[len1-x,s_n1])+'-'+str(pf1.iloc[len1-x,o_w_u_n1])+','+str(pf1.iloc[len1-x,r_s_n1])+'(mph)' for x in pf1['n']]))
+        pi1=[]
+        pi1.extend(reversed([str('{:0=4}'.format(x))+','+str(pf1.iloc[len1-x,g_d_n1])+','+str(pf1.iloc[len1-x,p_t_n1])+',IP:'+str(pf1.iloc[len1-x,inn_n1])+',B-S-O:'+str(pf1.iloc[len1-x,b_n1])+'-'+str(pf1.iloc[len1-x,s_n1])+'-'+str(pf1.iloc[len1-x,o_w_u_n1])+','+str(pf1.iloc[len1-x,r_s_n1])+'(mph)' for x in pf1['n']]))
 
-pitch1_1 = st.sidebar.selectbox(
+pi1_1 = st.sidebar.selectbox(
     'Pitch1',
-    pitch1,
+    pi1,
     index = None,
     placeholder='Please select a pitch.')
 
@@ -175,7 +175,7 @@ fig_2 = go.Figure()
 ###グラフ0
 
 
-if y0_1 is None or player0_1 is None or pitch0_1 is None:
+if y0_1 is None or pl0_1 is None or pi0_1 is None:
     pass
 else:
     def t_50_0(a,b,c):
@@ -203,7 +203,7 @@ else:
     def r_z_s0(a,b,c):
         return r_z_c0(a,b,c)+a.iloc[b-c,vz0_n0]*t_s(a,b,c)+(1/2)*a.iloc[b-c,az_n0]*t_s(a,b,c)**2
 
-    n0 = int(pitch0_1[0:4])
+    n0 = int(pi0_1[0:4])
 
     ax0 = pf0.iloc[len0-n0,ax_n0]
     ay0 = pf0.iloc[len0-n0,ay_n0]
@@ -372,7 +372,7 @@ else:
 
 ###グラフ1
 
-if y1_1 is None or player1_1 is None or pitch1_1 is None:
+if y1_1 is None or pl1_1 is None or pi1_1 is None:
     pass
 else:
     def t_50_0(a,b,c):
@@ -400,7 +400,7 @@ else:
     def r_z_s0(a,b,c):
         return r_z_c1(a,b,c)+a.iloc[b-c,vz0_n1]*t_s(a,b,c)+(1/2)*a.iloc[b-c,az_n1]*t_s(a,b,c)**2
 
-    n1 = int(pitch1_1[0:4])
+    n1 = int(pi1_1[0:4])
 
     ax1 = pf1.iloc[len1-n1,ax_n1]
     ay1 = pf1.iloc[len1-n1,ay_n1]
@@ -532,7 +532,7 @@ else:
     y1_sz.append(17/12)
     z1_sz.append(pf1.iloc[len1-n1,sz_bot_n1])
 
-    if pitch0_1 is None:
+    if pi0_1 is None:
         fig_0.add_trace(go.Scatter3d(
             x=x1_sz,
             y=y1_sz,
