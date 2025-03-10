@@ -176,46 +176,46 @@ fig_2 = go.Figure()
 if year0_1 is None or player0_1 is None or pitch0_1 is None:
     pass
 else:
-    def time_50_0(a,b,c):
+    def t_50_0(a,b,c):
         return (-np.sqrt(a.iloc[b-c,vy0_n0]**2-(2*a.iloc[b-c,ay_n0]*50))-a.iloc[b-c,vy0_n0])/a.iloc[b-c,ay_n0]
-    def time_50_1712(a,b,c):
+    def t_50_1712(a,b,c):
         return (-np.sqrt(a.iloc[b-c,vy0_n0]**2-(2*a.iloc[b-c,ay_n0]*(50-17/12)))-a.iloc[b-c,vy0_n0])/a.iloc[b-c,ay_n0]
-    def time_start(a,b,c):
+    def t_s(a,b,c):
         return (-a.iloc[b-c,vy0_n0]-np.sqrt(a.iloc[b-c,vy0_n0]**2-a.iloc[b-c,ay_n0]*(100-2*a.iloc[b-c,release_pos_y_n])))/a.iloc[b-c,ay_n0]
-    def time_whole(a,b,c):
-        return time_50_0(a,b,c)-time_start(a,b,c)
-    def velx0_start(a,b,c):
-        return a.iloc[b-c,vx0_n0]+a.iloc[b-c,ax_n0]*time_start(a,b,c)
-    def vely0_start(a,b,c):
-        return a.iloc[b-c,vy0_n0]+a.iloc[b-c,ay_n0]*time_start(a,b,c)
-    def velz0_start(a,b,c):
-        return a.iloc[b-c,vz0_n0]+a.iloc[b-c,az_n0]*time_start(a,b,c)
-    def relese_x_correction0(a,b,c):
-        return a.iloc[b-c,29]-(a.iloc[b-c,vx0_n0]*time_50_1712(a,b,c)+(1/2)*a.iloc[b-c,ax_n0]*time_50_1712(a,b,c)**2)
-    def relese_z_correction0(a,b,c):
-        return a.iloc[b-c,30]-(a.iloc[b-c,vz0_n0]*time_50_1712(a,b,c)+(1/2)*a.iloc[b-c,az_n0]*time_50_1712(a,b,c)**2)
-    def relese_x_start0(a,b,c):
-        return relese_x_correction0(a,b,c)+a.iloc[b-c,vx0_n0]*time_start(a,b,c)+(1/2)*a.iloc[b-c,ax_n0]*time_start(a,b,c)**2
-    def relese_y_start0(a,b,c):
-        return 50+a.iloc[b-c,vy0_n0]*time_start(a,b,c)+(1/2)*a.iloc[b-c,ay_n0]*time_start(a,b,c)**2
-    def relese_z_start0(a,b,c):
-        return relese_z_correction0(a,b,c)+a.iloc[b-c,vz0_n0]*time_start(a,b,c)+(1/2)*a.iloc[b-c,az_n0]*time_start(a,b,c)**2
+    def t_w(a,b,c):
+        return t_50_0(a,b,c)-t_s(a,b,c)
+    def v_x0_s(a,b,c):
+        return a.iloc[b-c,vx0_n0]+a.iloc[b-c,ax_n0]*t_s(a,b,c)
+    def v_y0_s(a,b,c):
+        return a.iloc[b-c,vy0_n0]+a.iloc[b-c,ay_n0]*t_s(a,b,c)
+    def v_z0_s(a,b,c):
+        return a.iloc[b-c,vz0_n0]+a.iloc[b-c,az_n0]*t_s(a,b,c)
+    def r_x_c0(a,b,c):
+        return a.iloc[b-c,29]-(a.iloc[b-c,vx0_n0]*t_50_1712(a,b,c)+(1/2)*a.iloc[b-c,ax_n0]*t_50_1712(a,b,c)**2)
+    def r_z_c0(a,b,c):
+        return a.iloc[b-c,30]-(a.iloc[b-c,vz0_n0]*t_50_1712(a,b,c)+(1/2)*a.iloc[b-c,az_n0]*t_50_1712(a,b,c)**2)
+    def r_x_s0(a,b,c):
+        return r_x_c0(a,b,c)+a.iloc[b-c,vx0_n0]*t_s(a,b,c)+(1/2)*a.iloc[b-c,ax_n0]*t_s(a,b,c)**2
+    def r_y_s0(a,b,c):
+        return 50+a.iloc[b-c,vy0_n0]*t_s(a,b,c)+(1/2)*a.iloc[b-c,ay_n0]*t_s(a,b,c)**2
+    def r_z_s0(a,b,c):
+        return r_z_c0(a,b,c)+a.iloc[b-c,vz0_n0]*t_s(a,b,c)+(1/2)*a.iloc[b-c,az_n0]*t_s(a,b,c)**2
 
     n0 = int(pitch0_1[0:4])
 
     ax0 = pf0.iloc[length0-n0,ax_n0]
     ay0 = pf0.iloc[length0-n0,ay_n0]
     az0 = pf0.iloc[length0-n0,az_n0]
-    t_50_00 = time_50_0(pf0,length0,n0)
-    t_50_17120 = time_50_1712(pf0,length0,n0)
-    t_start0 = time_start(pf0,length0,n0)
-    t_whole0 = time_whole(pf0,length0,n0)
-    v_x0_s0 = velx0_start(pf0,length0,n0)
-    v_y0_s0 = vely0_start(pf0,length0,n0)
-    v_z0_s0 = velz0_start(pf0,length0,n0)
-    r_x_s0 = relese_x_start0(pf0,length0,n0)
-    r_y_s0 = relese_y_start0(pf0,length0,n0)
-    r_z_s0 = relese_z_start0(pf0,length0,n0)
+    t_50_00 = t_50_0(pf0,length0,n0)
+    t_50_17120 = t_50_1712(pf0,length0,n0)
+    t_start0 = t_s(pf0,length0,n0)
+    t_whole0 = t_w(pf0,length0,n0)
+    v_x0_s0 = v_x0_s(pf0,length0,n0)
+    v_y0_s0 = v_y0_s(pf0,length0,n0)
+    v_z0_s0 = v_z0_s(pf0,length0,n0)
+    r_x_s0 = r_x_s0(pf0,length0,n0)
+    r_y_s0 = r_y_s0(pf0,length0,n0)
+    r_z_s0 = r_z_s0(pf0,length0,n0)
     x0_1=[]
     y0_1=[]
     z0_1=[]
@@ -373,46 +373,46 @@ else:
 if year1_1 is None or player1_1 is None or pitch1_1 is None:
     pass
 else:
-    def time_50_0(a,b,c):
+    def t_50_0(a,b,c):
         return (-np.sqrt(a.iloc[b-c,vy0_n1]**2-(2*a.iloc[b-c,ay_n1]*50))-a.iloc[b-c,vy0_n1])/a.iloc[b-c,ay_n1]
-    def time_50_1712(a,b,c):
+    def t_50_1712(a,b,c):
         return (-np.sqrt(a.iloc[b-c,vy0_n1]**2-(2*a.iloc[b-c,ay_n1]*(50-17/12)))-a.iloc[b-c,vy0_n1])/a.iloc[b-c,ay_n1]
-    def time_start(a,b,c):
+    def t_s(a,b,c):
         return (-a.iloc[b-c,vy0_n1]-np.sqrt(a.iloc[b-c,vy0_n1]**2-a.iloc[b-c,ay_n1]*(100-2*a.iloc[b-c,release_pos_y_n])))/a.iloc[b-c,ay_n1]
-    def time_whole(a,b,c):
-        return time_50_0(a,b,c)-time_start(a,b,c)
-    def velx0_start(a,b,c):
-        return a.iloc[b-c,vx0_n1]+a.iloc[b-c,ax_n1]*time_start(a,b,c)
-    def vely0_start(a,b,c):
-        return a.iloc[b-c,vy0_n1]+a.iloc[b-c,ay_n1]*time_start(a,b,c)
-    def velz0_start(a,b,c):
-        return a.iloc[b-c,vz0_n1]+a.iloc[b-c,az_n1]*time_start(a,b,c)
-    def relese_x_correction1(a,b,c):
-        return a.iloc[b-c,29]-(a.iloc[b-c,vx0_n1]*time_50_1712(a,b,c)+(1/2)*a.iloc[b-c,ax_n1]*time_50_1712(a,b,c)**2)
-    def relese_z_correction1(a,b,c):
-        return a.iloc[b-c,30]-(a.iloc[b-c,vz0_n1]*time_50_1712(a,b,c)+(1/2)*a.iloc[b-c,az_n1]*time_50_1712(a,b,c)**2)
-    def relese_x_start0(a,b,c):
-        return relese_x_correction1(a,b,c)+a.iloc[b-c,vx0_n1]*time_start(a,b,c)+(1/2)*a.iloc[b-c,ax_n1]*time_start(a,b,c)**2
-    def relese_y_start0(a,b,c):
-        return 50+a.iloc[b-c,vy0_n1]*time_start(a,b,c)+(1/2)*a.iloc[b-c,ay_n1]*time_start(a,b,c)**2
-    def relese_z_start0(a,b,c):
-        return relese_z_correction1(a,b,c)+a.iloc[b-c,vz0_n1]*time_start(a,b,c)+(1/2)*a.iloc[b-c,az_n1]*time_start(a,b,c)**2
+    def t_w(a,b,c):
+        return t_50_0(a,b,c)-t_s(a,b,c)
+    def v_x0_s(a,b,c):
+        return a.iloc[b-c,vx0_n1]+a.iloc[b-c,ax_n1]*t_s(a,b,c)
+    def v_y0_s(a,b,c):
+        return a.iloc[b-c,vy0_n1]+a.iloc[b-c,ay_n1]*t_s(a,b,c)
+    def v_z0_s(a,b,c):
+        return a.iloc[b-c,vz0_n1]+a.iloc[b-c,az_n1]*t_s(a,b,c)
+    def r_x_c1(a,b,c):
+        return a.iloc[b-c,29]-(a.iloc[b-c,vx0_n1]*t_50_1712(a,b,c)+(1/2)*a.iloc[b-c,ax_n1]*t_50_1712(a,b,c)**2)
+    def r_z_c1(a,b,c):
+        return a.iloc[b-c,30]-(a.iloc[b-c,vz0_n1]*t_50_1712(a,b,c)+(1/2)*a.iloc[b-c,az_n1]*t_50_1712(a,b,c)**2)
+    def r_x_s0(a,b,c):
+        return r_x_c1(a,b,c)+a.iloc[b-c,vx0_n1]*t_s(a,b,c)+(1/2)*a.iloc[b-c,ax_n1]*t_s(a,b,c)**2
+    def r_y_s0(a,b,c):
+        return 50+a.iloc[b-c,vy0_n1]*t_s(a,b,c)+(1/2)*a.iloc[b-c,ay_n1]*t_s(a,b,c)**2
+    def r_z_s0(a,b,c):
+        return r_z_c1(a,b,c)+a.iloc[b-c,vz0_n1]*t_s(a,b,c)+(1/2)*a.iloc[b-c,az_n1]*t_s(a,b,c)**2
 
     n1 = int(pitch1_1[0:4])
 
     ax1 = pf1.iloc[length1-n1,ax_n1]
     ay1 = pf1.iloc[length1-n1,ay_n1]
     az1 = pf1.iloc[length1-n1,az_n1]
-    t_50_01 = time_50_0(pf1,length1,n1)
-    t_50_17121 = time_50_1712(pf1,length1,n1)
-    t_start1 = time_start(pf1,length1,n1)
-    t_whole1 = time_whole(pf1,length1,n1)
-    v_x0_s1 = velx0_start(pf1,length1,n1)
-    v_y0_s1 = vely0_start(pf1,length1,n1)
-    v_z0_s1 = velz0_start(pf1,length1,n1)
-    r_x_s1 = relese_x_start0(pf1,length1,n1)
-    r_y_s1 = relese_y_start0(pf1,length1,n1)
-    r_z_s1 = relese_z_start0(pf1,length1,n1)
+    t_50_01 = t_50_0(pf1,length1,n1)
+    t_50_17121 = t_50_1712(pf1,length1,n1)
+    t_start1 = t_s(pf1,length1,n1)
+    t_whole1 = t_w(pf1,length1,n1)
+    v_x0_s1 = v_x0_s(pf1,length1,n1)
+    v_y0_s1 = v_y0_s(pf1,length1,n1)
+    v_z0_s1 = v_z0_s(pf1,length1,n1)
+    r_x_s1 = r_x_s0(pf1,length1,n1)
+    r_y_s1 = r_y_s0(pf1,length1,n1)
+    r_z_s1 = r_z_s0(pf1,length1,n1)
     x1_1=[]
     y1_1=[]
     z1_1=[]
