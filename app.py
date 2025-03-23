@@ -316,6 +316,7 @@ else:
             y=1,
             orientation='h',
         )
+    
     vy_f0 = -np.sqrt(pf0.iloc[len0-n0,vy0_n0]**2-(2*pf0.iloc[len0-n0,ay_n0]*(50-17/12)))
     t0 = (vy_f0-pf0.iloc[len0-n0,vy0_n0])/pf0.iloc[len0-n0,ay_n0]
     vz_f0 = pf0.iloc[len0-n0,vz0_n0]+pf0.iloc[len0-n0,az_n0]*t0
