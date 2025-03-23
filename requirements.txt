@@ -1,5 +1,5 @@
-numpy==1.25.2
-pandas==2.2.3
-plotly==5.22.0
-pybaseball==2.2.7
-streamlit==1.42.2
+numpy
+pandas
+plotly
+pybaseball
+streamlit
