@@ -33,14 +33,14 @@ data = load_data()
 
 st.set_page_config(layout="wide")
 
-st.title("## Pitch Trajector")
-st.markdown("Who made this? [empty8128(X)](https://x.com/empty8128)")
+st.title("Pitch Trajector")
+st.markdown("Who made this? [empty8128(𝕏)](https://x.com/empty8128)")
 st.sidebar.markdown("Please select in the order of year-playername-pitch")
 
 
 ###年指定0
 
-y0 = [var for var in range(2015,2026,1)]
+y0 = [var for var in range(2015,2025,1)]
 
 y0_1 = st.sidebar.selectbox(
     'Year0',
