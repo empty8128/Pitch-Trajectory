@@ -159,7 +159,7 @@ else:
     t0 = (vy_f0-pf0.iloc[len0-n0,vy0_n0])/pf0.iloc[len0-n0,ay_n0]
     vz_f0 = pf0.iloc[len0-n0,vz0_n0]+pf0.iloc[len0-n0,az_n0]*t0
     vaa0 = round((np.arctan(vz_f0/vy_f0))*(180/(math.pi)),1)
-    k = 'Piych Info--Pitch Name:'+str(pf0.iloc[len0-n0,p_n_n0])+',\nDescription:'+str(pf0.iloc[len0-n0,ev_n0])+',\nVAA:'+str(vaa0)
+    k = 'Piych Info--\r\nPitch Name:'+str(pf0.iloc[len0-n0,p_n_n0])+',\r\nDescription:'+str(pf0.iloc[len0-n0,ev_n0])+',\r\nVAA:'+str(vaa0)
     st.sidebar.markdown(k)
 
     ax0 = pf0.iloc[len0-n0,ax_n0]
