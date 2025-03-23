@@ -21,12 +21,15 @@ def frange(start, end, step):
         list.append(n)
     return list
 
+'''
 def load_data():
-    file_path = 'data/player.json' 
+    file_path = 'data\player.json' 
     with open(file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
     return data
 data = load_data()
+'''
+
 
 st.set_page_config(layout="wide")
 
