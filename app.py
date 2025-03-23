@@ -92,7 +92,7 @@ else:
         p_t_n0 = pf0.columns.get_loc('pitch_type')
         g_d_n0 = pf0.columns.get_loc('game_date')
         p_n_n0 = pf0.columns.get_loc('pitch_name')
-        ev_n0 = pf0.columns.get_loc('events')
+        de_n0 = pf0.columns.get_loc('description')
         r_s_n0 = pf0.columns.get_loc('release_speed')
         b_n0 = pf0.columns.get_loc('balls')
         s_n0 = pf0.columns.get_loc('strikes')
@@ -159,7 +159,7 @@ else:
     t0 = (vy_f0-pf0.iloc[len0-n0,vy0_n0])/pf0.iloc[len0-n0,ay_n0]
     vz_f0 = pf0.iloc[len0-n0,vz0_n0]+pf0.iloc[len0-n0,az_n0]*t0
     vaa0 = round((np.arctan(vz_f0/vy_f0))*(180/(math.pi)),1)
-    k = 'Piych Info--\r\nPitch Name:'+str(pf0.iloc[len0-n0,p_n_n0])+',\r\nDescription:'+str(pf0.iloc[len0-n0,ev_n0])+',\r\nVAA:'+str(vaa0)
+    k = 'Piych Info--\r\nPitch Name:'+str(pf0.iloc[len0-n0,p_n_n0])+',\r\nDescription:'+str(pf0.iloc[len0-n0,de_n0])+',\r\nVAA:'+str(vaa0)
     st.sidebar.markdown(k)
 
     ax0 = pf0.iloc[len0-n0,ax_n0]
@@ -234,7 +234,7 @@ else:
         opacity=0.5,
         name='Without Movement from CP'
     ))
-
+    
     x0_rp=[]
     y0_rp=[]
     z0_rp=[]
