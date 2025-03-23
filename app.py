@@ -23,7 +23,7 @@ def frange(start, end, step):
 
 def load_data():
     file_path = 'data\player.json' 
-    with open(file_path, 'r', encoding='utf-8') as file:
+    with open(file_path) as file:
         data = json.load(file)
     return data
 data = load_data()
