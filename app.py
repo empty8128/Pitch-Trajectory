@@ -21,6 +21,7 @@ def frange(start, end, step):
         list.append(n)
     return list
 
+
 def load_data():
     file_path = 'data/player.json' 
     with open(file_path) as file:
@@ -28,9 +29,12 @@ def load_data():
     return data
 data = load_data()
 
+
+
 st.set_page_config(layout="wide")
 
-st.markdown("## Pitch Trajector")
+st.title("## Pitch Trajector")
+st.markdown("Who made this? [empty8128(X)](https://x.com/empty8128)")
 st.sidebar.markdown("Please select in the order of year-playername-pitch")
 
 
