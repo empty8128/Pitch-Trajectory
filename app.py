@@ -35,7 +35,7 @@ data = load_data()
 st.set_page_config(layout="wide")
 
 st.title("Pitch Trajector")
-st.markdown("Who made this? [empty8128(𝕏)](https://x.com/empty8128)")
+st.markdown("Who made this? [empty8128<𝕏(Twitter)>](https://x.com/empty8128)")
 st.sidebar.markdown("Please select in the order of year-playername-pitch")
 
 
@@ -234,7 +234,7 @@ else:
         opacity=0.5,
         name='Without Movement from CP'
     ))
-    
+
     x0_rp=[]
     y0_rp=[]
     z0_rp=[]
