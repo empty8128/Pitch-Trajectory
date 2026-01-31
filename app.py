@@ -6,7 +6,6 @@ from pybaseball import playerid_lookup
 import plotly.graph_objects as go
 import numpy as np
 import json
-import dash
 import math
 from numpy import pi, sin, cos
 
