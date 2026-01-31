@@ -6,6 +6,7 @@ from pybaseball import playerid_lookup
 import plotly.graph_objects as go
 import numpy as np
 import json
+import dash
 import math
 from numpy import pi, sin, cos
 
@@ -61,7 +62,7 @@ zs = cos(v)
 
 ###年指定0
 
-y0 = [var for var in range(2015,2025,1)]
+y0 = [var for var in range(2015,2026,1)]
 
 y0_1 = st.sidebar.selectbox(
     'Year0',
@@ -129,6 +130,7 @@ else:
             s_n0 = pf0.columns.get_loc('strikes')
             o_w_u_n0 = pf0.columns.get_loc('outs_when_up')
             inn_n0 = pf0.columns.get_loc('inning')
+            inntb_n0 = pf0.columns.get_loc('inning_topbot')
             vx0_n0 = pf0.columns.get_loc('vx0')
             vy0_n0 = pf0.columns.get_loc('vy0')
             vz0_n0 = pf0.columns.get_loc('vz0')
@@ -608,12 +610,21 @@ else:
         ),
         showlegend=False
     )
+
+    if str(pf0.iat[len0-n0,inntb_n0]) == 'Top':
+        index5_1 = 'Pitcher'
+        index6_1 = 'Batter'
+    else:
+        index5_1 = 'Batter'
+        index6_1 = 'Pitcher'
     index1 = str(pf0.iat[len0-n0,r_s_n0])
     index2 = str(pf0.iat[len0-n0,r_s_r_n0])
     index3_0 = pf0.iat[len0-n0,p_t_n0]
     index3_1 = str(pf0.iat[len0-n0,p_n_n0])
     index4_0 = int(pf0.iat[len0-n0,zone_n0])
     index4_1 = bs
+    index5_0 = str(pf0.iat[len0-n0,h_t_n0])
+    index6_0 = str(pf0.iat[len0-n0,a_t_n0])
     ok = 1
 
 ###表示
@@ -643,14 +654,15 @@ st.markdown("""
 
 st.plotly_chart(fig_0, key="unique_key_1")
 if active_spin == -1:
-    st.sidebar.markdown("This data only displays pitches from 2020 onward.このデータは2020年以降のピッチのみを表示しています。")
+    st.sidebar.markdown("This data displays only pitches from 2020 to 2024.このデータは2020年から2024年のピッチのみを表示しています。")
 else:
     st.sidebar.plotly_chart(fig, key="unique_key_2")
 
 if ok == 1:
-    st.markdown(f'<div class="whole"><div class="title0"><div class="title1">SPEED</div></div><ul class="list"><li class="list1">{index1}</li><li class="list2">(MPH)</li></ul></div><div class="whole"><div class="title0"><div class="title1">RPM</div></div><ul class="list"><li class="list1">{index2}</li><li class="list2">(/s)</li></ul></div><div class="whole"><div class="title0"><div class="title1">VAA</div></div><ul class="list"><li class="list1">{vaa0}</li><li class="list2">(°)</li></ul></div><div class="whole"><div class="title0"><div class="title1">HAA</div></div><ul class="list"><li class="list1">{haa0}</li><li class="list2">(°)</li></ul></div><div class="whole"><div class="title0"><div class="title1">Pitch Type</div></div><ul class="list"><li class="list1">{index3_0}</li><li class="list2">{index3_1}</li></ul></div><div class="whole"><div class="title0"><div class="title1">ZONE</div></div><ul class="list"><li class="list1">{index4_0}</li><li class="list2">{index4_1}</li></ul></div>',unsafe_allow_html=True)
+    st.markdown(f'<div class="whole"><div class="title0"><div class="title1">SPEED</div></div><ul class="list"><li class="list1">{index1}</li><li class="list2">(MPH)</li></ul></div><div class="whole"><div class="title0"><div class="title1">RPM</div></div><ul class="list"><li class="list1">{index2}</li><li class="list2">(/s)</li></ul></div><div class="whole"><div class="title0"><div class="title1">VAA</div></div><ul class="list"><li class="list1">{vaa0}</li><li class="list2">(°)</li></ul></div><div class="whole"><div class="title0"><div class="title1">HAA</div></div><ul class="list"><li class="list1">{haa0}</li><li class="list2">(°)</li></ul></div><div class="whole"><div class="title0"><div class="title1">Pitch Type</div></div><ul class="list"><li class="list1">{index3_0}</li><li class="list2">{index3_1}</li></ul></div><div class="whole"><div class="title0"><div class="title1">ZONE</div></div><ul class="list"><li class="list1">{index4_0}</li><li class="list2">{index4_1}</li></ul></div><div class="whole"><div class="title0"><div class="title1">HOME</div></div><ul class="list"><li class="list1">{index5_0}</li><li class="list2">{index5_1}</li></ul></div><div class="whole"><div class="title0"><div class="title1">AWAY</div></div><ul class="list"><li class="list1">{index6_0}</li><li class="list2">{index6_1}</li></ul></div>',unsafe_allow_html=True)
 
 st.sidebar.markdown('This data is still in the verification phase. Please contact me if you know more about this.ここのデータはまだ検証段階です。詳しい方は連絡をいただけると助かります。')
+#<div class="whole"><div class="title0"><div class="title1">SPEED</div></div><ul class="list"><li class="list1">{index1}</li><li class="list2">(MPH)</li></ul></div>
 
 st.markdown("""
     <style>
