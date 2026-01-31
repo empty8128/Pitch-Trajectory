@@ -653,7 +653,7 @@ st.markdown("""
 
 st.plotly_chart(fig_0, key="unique_key_1")
 if active_spin == -1:
-    st.sidebar.markdown("This data displays only pitches from 2020 to 2024.このデータは2020年から2024年のピッチのみを表示しています。")
+    st.sidebar.markdown("This data displays only pitches from 2020 to 2025.このデータは2020年から2025年のピッチのみを表示しています。")
 else:
     st.sidebar.plotly_chart(fig, key="unique_key_2")
 
