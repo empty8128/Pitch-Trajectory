@@ -2,4 +2,5 @@ numpy
 pandas
 plotly
 pybaseball
-streamlit
+streamlit>=1.30
+altair>=5
